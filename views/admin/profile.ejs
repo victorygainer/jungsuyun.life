@@ -1,0 +1,71 @@
+<%- include('layout/header.ejs') %>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">프로필 관리</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/admin/home">홈</a></li>
+              <li class="breadcrumb-item active">프로필 관리</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <table id="profile-table" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>타이틀</th>
+                  <th>연도</th>
+                  <th>언어</th>
+                  <th>카테고리</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% profiles.forEach(profile => { %>
+                  <tr id="profile-row-<%= profile.id %>">
+                    <td><%= profile.id %></td>
+                    <td class="profile-title"><%= profile.title %></td>
+                    <td class="profile-year"><%= profile.year %></td>
+                    <td class="profile-language" data-language="<%= profile.language %>"><%= profile.language %></td>
+                    <td class="profile-category" data-category="<%= profile.category %>"><%= profile.category %></td>
+                    <td>
+                      <button class="btn btn-sm btn-info" id="edit-profile" data-id="<%= profile.id %>">수정</button>
+                      <button class="btn btn-sm btn-danger" id="delete-profile" data-id="<%= profile.id %>">삭제</button>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <div class="row">
+        <div class="col-12 text-right">
+          <button id="add-profile-btn" class="btn btn-primary mb-3">프로필 추가</button>
+          <button id="save-profile-btn" class="btn btn-primary mb-3">프로필 저장</button>
+        </div>
+      </div>
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</div>
+<%- include('layout/footer.ejs') %>
+
+<!-- Script -->
+<script src="/js/adminProfile.js"></script>

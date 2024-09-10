@@ -1,0 +1,46 @@
+<%- include('layout/header.ejs') %>
+
+<div id="loading_spinner">
+    <div class="cv_spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
+<section class="main contact">
+    <div class="container">
+        <div class="form_wrapper">
+            <h3>
+                Information Request
+            </h3>
+            <form method="POST" action="" id="contact_form">
+                <input type="text" name="name" placeholder="Name" />
+                <p></p>
+                <input type="email" name="email" placeholder="Email" />
+                <p></p>
+                <input type="text" name="subject" placeholder="Subject" />
+                <p></p>
+                <textarea name="message" placeholder="Message" style=" height: 25em;
+                                                                       resize: none;"></textarea>
+                <p></p>
+                <div class="g-recaptcha" data-sitekey="6Lf2h6spAAAAACwPctUhrbV-80RD49KzhVsrkWaX"></div>
+                <button type="button" name="submit" id="submit" disabled >Submit</button>
+            </form>
+        </div>
+    </div>
+</section><!--/main -->
+<div class="modal fade modal-vcenter" id="contact_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>전송이 완료되었습니다.</h4>
+                <button type="button" class="btn btn-info" id="checkBtn" data-dismiss="modal">확인</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<%- include('layout/footer.ejs') %>
+
+
+<!-- Script -->
+<script src="/js/indexContact.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>

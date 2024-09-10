@@ -1,0 +1,21 @@
+<%- include('layout/header.ejs') %>
+<section class="main">
+    <div class="img_wrapper">
+        <% if (randomWork) { %>
+            <img src="<%= randomWork.imagePath %>" alt="main image" id="m_img" data-imgPath="<%= randomWork.imagePath %>" />
+            <div class="clearfix"></div>
+            <p>
+                <span><%= randomWork.title %></span>,&nbsp;
+                <span><%= randomWork.year %></span>,&nbsp;
+                <span><%= randomWork.medium %></span>,&nbsp;
+                <span><%= randomWork.dimensions %></span>
+            </p>
+        <% } else { %>
+            <p>No work available.</p>
+        <% } %>
+    </div>
+</section><!--/main -->
+<%- include('layout/footer.ejs') %>
+
+<!-- Script -->
+<script src="/js/indexHome.js"></script>

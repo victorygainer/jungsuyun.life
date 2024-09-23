@@ -3,16 +3,18 @@
 /**********************************************************************/
 
 window.onload = function() {
-
-  if(window.location.protocol == "http:"){
-    window.location.protocol = "https:";
+  //localhost가 아닌 경우 http로 접속 시 http로 리다이렉트  
+  if(location.hostname != "localhost"){
+    if(window.location.protocol == "http:"){
+      window.location.protocol = "https:";
+    }
   }
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const loginFailed = urlParams.get('loginFailed');
-    if (loginFailed) {
-      document.getElementById('loginMessage').style.display = 'block';
-    }
+  const urlParams = new URLSearchParams(window.location.search);
+  const loginFailed = urlParams.get('loginFailed');
+  if (loginFailed) {
+    document.getElementById('loginMessage').style.display = 'block';
+  }
   }
 
   /**********************************************************************/

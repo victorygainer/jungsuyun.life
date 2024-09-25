@@ -1,3 +1,4 @@
+const fs = require('fs');
 const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
@@ -10,7 +11,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ dest: 'public/media/img/main' }).single('imagePath');
+const upload = multer({ dest: 'public/media/img/main/originals' }).single('imagePath');
 
 exports.getAllWorks = async (req, res) => {
   try {
@@ -70,6 +71,20 @@ exports.createWork = (req, res, next) => {
       res.json({ message: '작업이 성공적으로 저장되었습니다', work: createWork });
     } catch (error) {
       console.error('작업 저장 중 오류 발생:', error);
+      
+      // 오류 시 원본파일, 썸네일 저장하지 않고 삭제
+      fs.unlink(req.file.path, (err) => {
+        if (err) {
+          console.error('원본 파일 삭제 중 오류 발생:', err);
+        }
+      });
+
+      fs.unlink(fullThumbnailPath, (err) => {
+        if (err) {
+          console.error('썸네일 삭제 중 오류 발생:', err);
+        }
+      });
+
       res.status(500).send('서버 오류로 인해 작업 저장에 실패했습니다.');
     }
   });
@@ -79,13 +94,39 @@ exports.deleteWork = async (req, res) => {
   const workId = req.params.workId;
 
   try {
-      await Work.destroy({
-          where: { id: workId }
-      })
-      res.send('삭제 완료되었습니다.');
+    // 작업 정보 조회
+    const work = await Work.findOne({ where: {id: workId } });
+
+    if(!work){
+      return res.status(404).send('workId를 찾을 수 없습니다.')
+    }
+
+    // 관련 파일 경로
+    const imagePath = path.join('public', work.imagePath);
+    const thumbnailPath = path.join('public', work.thumbnailPath);
+
+    // DB에서 workId 삭제
+    await Work.destroy({
+      where: { id: workId }
+    })
+
+    // 파일 삭제
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error('원본 파일 삭제 중 오류 발생:', err);
+      }
+    });
+
+    fs.unlink(thumbnailPath, (err) => {
+      if (err) {
+        console.error('썸네일 삭제 중 오류 발생:', err);
+      }
+    });
+
+    res.send('workId 삭제 완료되었습니다.');
   } catch (error) {
-      console.error('작업 삭제 중 오류 발생:', error);
-      res.status(500).send('서버 오류로 인해 프로필 삭제에 실패했습니다.');
+      console.error('workId 삭제 중 오류 발생:', error);
+      res.status(500).send('서버 오류로 인해 workId 삭제에 실패했습니다.');
   }
 };
 

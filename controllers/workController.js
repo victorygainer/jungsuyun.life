@@ -47,7 +47,7 @@ exports.createWork = (req, res, next) => {
     // 썸네일 생성
     try {
       const imagePath = req.file.path.replace('public', '');      
-      const thumbnailPath = path.join('/media/img/thumbnails', `thumbnail-${req.file.filename}.jpg`);
+      const thumbnailPath = path.join('/media/img/thumbnails', `thumbnail-${req.file.filename}`);
 
       // Sharp를 사용하여 썸네일 생성
       await sharp(req.file.path)

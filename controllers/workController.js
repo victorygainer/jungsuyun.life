@@ -5,13 +5,13 @@ const path = require('path');
 const { Work } = require('../models');
 
 const storage = multer.diskStorage({
-  destination: 'public/media/img/main',
+  destination: 'public/media/img/main/originals',
   filename: (req, file, cb) => {
-    cb(null, `${file.fieldname}.jpg`);
+    cb(null, file.originalname); // 원래 확장자를 파일 이름에 추가
   }
 });
 
-const upload = multer({ dest: 'public/media/img/main/originals' }).single('imagePath');
+const upload = multer({ storage: storage }).single('imagePath');
 
 exports.getAllWorks = async (req, res) => {
   try {

@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const option = {
   host: process.env[`${env.toUpperCase()}_HOST`],
-  port: process.env[`${env.toUpperCase()}_PORT` || '3306'],
+  port: process.env[`${env.toUpperCase()}_PORT`] || '3306',
   user: process.env[`${env.toUpperCase()}_USERNAME`],
   password: process.env[`${env.toUpperCase()}_PASSWORD`],
   database: process.env[`${env.toUpperCase()}_DATABASE`],
@@ -53,7 +53,11 @@ app.use(session({
   secret: process.env.COOKIE_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: new MySQLStore(option)
+  store: new MySQLStore(option),
+  cookie:{
+    httpOnly: true,
+    secure: env === 'uction'
+  }
 }));
 
 app.use("/scripts", express.static(path.join(__dirname, "node_modules")));

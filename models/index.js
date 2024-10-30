@@ -7,7 +7,7 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const db = {};
 
-const env = process.env.NODE_ENV || 'prod'; 
+const env = process.env.NODE_ENV || 'PRODUCTION'; 
 const config = {
   username: process.env[`${env.toUpperCase()}_USERNAME`],
   password: process.env[`${env.toUpperCase()}_PASSWORD`],

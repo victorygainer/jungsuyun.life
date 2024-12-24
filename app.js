@@ -56,7 +56,7 @@ app.use(session({
   store: new MySQLStore(option),
   cookie:{
     httpOnly: true,
-    secure: env === 'uction'
+    secure: env === 'production'
   }
 }));
 

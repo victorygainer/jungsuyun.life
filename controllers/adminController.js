@@ -5,7 +5,7 @@ exports.home = async (req, res) => {
     if(req.session.is_logined){
       res.render('admin/home', {csrfToken: req.csrfToken()});
     } else {
-      res.render('admin/login');
+      res.render('admin/login', {recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY});
     }
   };
   
@@ -19,7 +19,7 @@ exports.home = async (req, res) => {
       });
       res.render('admin/profile', {csrfToken: req.csrfToken(), profiles});
     } else {
-      res.render('admin/login');
+      res.render('admin/login', {recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY});
     }
   };
 
@@ -33,6 +33,6 @@ exports.home = async (req, res) => {
       });
       res.render('admin/work', {csrfToken: req.csrfToken(), works});
     } else {
-      res.render('admin/login');
+      res.render('admin/login', {recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY});
     }
   };

@@ -5,7 +5,8 @@ const nodemailer = require('nodemailer');
 exports.getContact = async (req, res) => {
     try {
         res.render('contact', { 
-            csrfToken: req.csrfToken()
+            csrfToken: req.csrfToken(),
+            recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY
         });
     } catch (error) {
         console.error("Error fetching contact:", error);

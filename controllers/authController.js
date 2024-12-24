@@ -8,7 +8,7 @@ exports.login = async (req, res) => {
   if(req.session.is_logined){
     res.render('admin/home', { csrfToken: req.csrfToken() });
   } else {
-    res.render('admin/login', { csrfToken: req.csrfToken() });
+    res.render('admin/login', { csrfToken: req.csrfToken(), recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY});
   }
 };
 
